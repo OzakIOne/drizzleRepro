@@ -1,9 +1,7 @@
 import {
-  bigint,
+  integer,
   pgTable,
-  serial,
   text,
-  timestamp,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSchemaFactory } from "drizzle-zod";
 
@@ -12,13 +10,9 @@ export const { createInsertSchema: createInsertSchemaBroken } = createSchemaFact
 });
 
 export const comments = pgTable("comments", {
-  id: serial("id").primaryKey(),
-  postId: bigint({ mode: "number" })
-    .notNull(),
+  postId: integer().notNull(),
   content: text().notNull(),
-  createdAt: timestamp().defaultNow().notNull(),
-  userId: text()
-    .notNull(),
+  userId: text().notNull(),
 });
 
 export const commentInsertSchema = createInsertSchema(comments);
